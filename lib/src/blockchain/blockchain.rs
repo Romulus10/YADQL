@@ -22,8 +22,9 @@ pub struct KeyVal {
 pub struct Blockchain {
     /// # struct Blockchain
     pub memory: Vec<KeyVal>,
+    provider: &str,
     cAddr: Address,
-    ethabi: ethabi::Contract
+    ethabi: ethabi::Contract,
 }
 
 pub struct Success {

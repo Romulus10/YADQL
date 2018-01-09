@@ -15,6 +15,14 @@ impl Crypt {
         }
     }
 
+    pub fn get_key(&self) -> String {
+        let proto = Protocol::OpenPgp;
+        let mode = gpgme::SignMode::Clear;
+        let mut ctx = Context::from_protocol(proto).unwrap();
+        ctx.set_armor(true);
+        ctx.find_keys(recipients).unwrap().filter_map(Result::ok).filter(|k| k.can_encrypt()).collect()[0]
+    }
+
     pub fn sign(&self, clear: String) -> String {
         //! ## sign(clear: String, key: String) -> String
         //! Takes plaintext and our public key, and signs the plaintext.
